@@ -1,0 +1,40 @@
+Loading required package: nnls
+Loading required package: TOAST
+Loading required package: EpiDISH
+Loading required package: limma
+
+Attaching package: ‘limma’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    plotMA
+
+Loading required package: quadprog
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+MuSiC v1.0.0 support SingleCellExperiment! See Tutorial: https://xuranw.github.io/MuSiC/articles/MuSiC.html
+MuSiC2 for multi-condition bulk RNA-seq data is also available!
+	Command being timed: "Rscript benchmark_decon.r"
+	User time (seconds): 4068.11
+	System time (seconds): 928.19
+	Percent of CPU this job got: 1699%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 4:54.05
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 36304312
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 845
+	Minor (reclaiming a frame) page faults: 3228385
+	Voluntary context switches: 138815
+	Involuntary context switches: 14989084
+	Swaps: 0
+	File system inputs: 2908959
+	File system outputs: 6888
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
