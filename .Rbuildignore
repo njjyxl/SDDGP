@@ -1,0 +1,7 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.Rhistory$
+^Overview\.jpg$
+^README\.md$
+^LICENSE\.md$
+^benchmarks$
