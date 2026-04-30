@@ -1,43 +1,28 @@
-# SDDGP <img src="Overview.jpg" align="right" width="150"/>
-
-**Spatial Deconvolution via Deep Gaussian Processes**
-
-A two-stage Bayesian framework for spatial transcriptomics deconvolution
-that provides calibrated posterior uncertainty quantification.
-
-## Overview
-
-SDDGP decomposes each spatial transcriptomics spot into cell-type
-proportions through a principled probabilistic pipeline:
-
-1. **Reference construction** — builds a cell type-specific expression
-   profile from scRNA-seq, selects informative marker genes, and samples
-   pseudo-cells for downstream refinement.
-
-2. **Alpha prior estimation** — derives data-driven Dirichlet
-   concentration parameters via information-weighted gene specificity
-   and spatial smoothing.
-
-3. **Stage 1: DGP-enhanced MCMC deconvolution** — a 3-layer deep
-   Gaussian process encodes spatial correlation as an adaptive prior;
-   per-spot Metropolis-Hastings sampling under a negative binomial
-   likelihood produces full posterior summaries (mean, SD, 95% CI),
-   with split-chain R-hat and bulk ESS convergence diagnostics and
-   optional early stopping.
-
-4. **Resolution enhancement** — Matérn-weighted k-NN interpolation
-   (CARD-style) expands observed spots onto a dense within-tissue grid.
-
-5. **Stage 2: Single-cell refinement** — cosine similarity-guided
-   constrained NNLS maps spot-level proportions to individual
-   pseudo-cells, yielding single-cell-resolution assignments.
-
+# SDDGP 
+*A spatial Bayesian MCMC cell type deconvolution method for spatial transcriptomics*  
+![](https://github.com/njjyxl/SDDGP/blob/devel/Overview.jpg)  
+SDDGP leverages the hierarchical non-linear mapping capabilities of DGP to capture complex spatial dependencies while maintaining probabilistic interpretability through Markov Chain Monte Carlo (MCMC) inference.   
+## Installation  
+You can install SDDGP on Github with the following code.  
+### Dependencies  
++ R version >= 4.3.1.  
++ R packages: Matrix, Rcpp,RANN, methods,nnls,fields,sf,concaveman,ggplot2.
+```  
 ## Installation
+install.packages('devtools')  
 
-```r
-# From GitHub
-devtools::install_github("your-username/SDDGP")
+# install the Spatialsmooth package  
+devtools::install_github('njjyxl/SDDGP')  
+
+# load package  
+library(SDDGP)  
 ```
+The R package has been installed successfully on Operating systems:  
++ CentOS Linux release 7.5.1804 (Core)  
++ Windows 11  
+
+## Issues  
+All feedback, bug reports and suggestions are warmly welcomed! Please make sure to raise issues with a detailed and reproducible exmple and also please provide the output of your sessionInfo() in R!  
 
 ## Quick start
 
@@ -72,8 +57,15 @@ stage2 <- runStage2Refinement(stage1, ref, spatial_count_full)
 # Diagnostics
 printConvergenceReport(stage1)
 plotConvergenceDiagnostics(stage1, spatial_coords)
+
+# 7. Extract results
+prop_matrix <- results$theta_estimates
+
+colors = c("#FFD92F","#4DAF4A","#FCCDE5","#D9D9D9","#377EB8","#7FC97F","#BEAED4",
+    "#FDC086","#FFFF99","#386CB0","#F0027F","#BF5B17","#666666","#1B9E77","#D95F02",
+    "#7570B3","#E7298A","#66A61E","#E6AB02","#A6761D")
+SDDGP.pie(prop_matrix, pos,colors = colors ,radius = 0.52)
+SDDGP.celllandscape(prop_matrix, pos)
+SDDGP.Cor(prop_matrix)
+SDDGP.cellabundance(prop_matrix,pos)
 ```
-
-## License
-
-MIT
